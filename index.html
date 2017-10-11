@@ -8,7 +8,7 @@
 
   <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
 
-      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="/css/style.css">
 
   
 </head>
@@ -101,7 +101,8 @@
     <div class="clearfix"></div>
     <div class="logwrapper" scroll-glue="true">
       <div ng-repeat="entry in log"><span class="pull-right" ng-bind="entry.date|date:'short'"></span><span class="block" ng-bind="entry.message"></span>
-        <pre class="no-border" ng-if="showDebugInfo&amp;&amp;entry.debug" ng-bind="entry.debug|json"></pre>
+        <pre class="no-border" ng-if="showDebugInfo&amp;&amp;entry.debug" ng-bind="entry.debug|
+                                                                                   on"></pre>
       </div>
     </div>
   </div>
@@ -109,7 +110,7 @@
   <script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js'></script>
 <script src='https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js'></script>
 
-    <script  src="js/index.js"></script>
+    <script  src="/js/index.js"></script>
 
 </body>
 </html>
