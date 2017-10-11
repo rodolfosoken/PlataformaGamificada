@@ -1,0 +1,47 @@
+body {
+  margin-top: 5vh;
+}
+
+.trigger,
+.block {
+  display: block;
+}
+
+.trigger {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.no-border {
+  border: none;
+  border-radius: none;
+}
+
+label {
+  margin: 0;
+}
+
+em {
+  font-style: italic;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.logwrapper {
+  max-height: 200px;
+  overflow: auto;
+  padding: 0 5px 0 0;
+}
+.logwrapper pre {
+  margin: 0;
+  padding: 0;
+}
+
+.list-group-item .badge {
+  border-radius: 0;
+}
+.list-group-item.list-group-item-success .badge {
+  background-color: #3C763D;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Gamification System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  
+<div class="container" ng-app="GamifyApp" ng-controller="MainCtrl">
+  <h1>Gamify <small>Achievements made 
+      <strike>easy</strike> easier!</small></h1>
+  <p class="text-muted">Work in progress library for "gamification" in javascript.</p>
+  <div class="list-group">
+    <div class="list-group-item" ng-class="{'list-group-item-success': testAchievement1.isUnlocked()}"><span class="badge pull-right" ng-if="testAchievement1.isUnlocked()">Unlocked: {{testAchievement1.dateUnlocked()|date:'short'}}</span>
+      <h4 class="list-group-item-heading">Achievement 1 </h4><em class="list-group-item-text">Click "Button 1".</em>
+    </div>
+    <div class="list-group-item" ng-class="{'list-group-item-success': testAchievement2.isUnlocked()}"><span class="badge pull-right" ng-if="testAchievement2.isUnlocked()">Unlocked {{testAchievement2.dateUnlocked()|date:'short'}} </span><span class="badge pull-right" ng-if="testAchievement2.getProgress() &gt; 0 &amp;&amp; !testAchievement2.isUnlocked()">{{testAchievement2.getProgress() * 100|number:2}}%</span>
+      <h4 class="list-group-item-heading">Achievement 2 </h4><em class="list-group-item-text">Click "Button 1" three times and "Button 2" once in any order.</em>
+      <!-- pre.no-border
+      | counterBtn1: {{testAchievement2.counterBtn1|json}}
+      | counterBtn2: {{testAchievement2.counterBtn2|json}}
+      
+      -->
+    </div>
+    <div class="list-group-item" ng-class="{'list-group-item-success': testAchievement3.isUnlocked()}"><span class="badge pull-right" ng-if="testAchievement3.isUnlocked()">Unlocked: {{testAchievement3.dateUnlocked()|date:'short'}}</span>
+      <h4 class="list-group-item-heading">Achievement 3 </h4><em class="list-group-item-text">Click "Button 4" then immediately click "Button 1" 
+        <u class="text-danger">with-in 1 second.</u></em>
+      <!-- pre.no-border
+      | lastTime: {{testAchievement3.lastTime|json}}
+      | lastAction: {{testAchievement3.lastAction|json}}
+      | lastParam: {{testAchievement3.lastParam|json}}
+      
+      -->
+    </div>
+    <div class="list-group-item" ng-class="{'list-group-item-success': testAchievement4.isUnlocked()}"><span class="badge pull-right" ng-if="testAchievement4.isUnlocked()">Unlocked: {{testAchievement4.dateUnlocked()|date:'short'}}</span>
+      <h4 class="list-group-item-heading">Achievement 4 </h4><em class="list-group-item-text">Win all other achievements
+        <u class="text-danger">without clicking</u> "Button 3".</em>
+      <!-- pre.no-border
+      | tainted: {{testAchievement4.tainted|json}}
+      
+      -->
+    </div>
+    <div class="list-group-item" ng-class="{'list-group-item-success': testAchievement5.isUnlocked()}"><span class="badge pull-right" ng-if="testAchievement5.isUnlocked()">Unlocked: {{testAchievement5.dateUnlocked()|date:'short'}}</span><span class="badge pull-right" ng-if="testAchievement5.getProgress() &gt; 0 &amp;&amp; !testAchievement5.isUnlocked()">{{testAchievement5.getProgress() * 100|number:2}}%</span>
+      <h4 class="list-group-item-heading">Achievement 5 </h4><em class="list-group-item-text">You must unlock all other achievements.</em>
+      <!-- pre.no-border
+      | totalCount: {{testAchievement4.totalCount|json}}
+      
+      -->
+    </div>
+  </div>
+  <dl class="row text-center">
+    <div class="col-sm-6">
+      <button class="trigger btn btn-primary btn-lg" ng-click="gamify.trigger(event1, [button1])">Button 1</button>
+      <button class="trigger btn btn-primary btn-lg" ng-click="gamify.trigger(event1, [button2])">Button 2</button>
+    </div>
+    <div class="col-sm-6">
+      <button class="trigger btn btn-primary btn-lg" ng-click="gamify.trigger(event2, [button1])">Button 3</button>
+      <button class="trigger btn btn-primary btn-lg" ng-click="gamify.trigger(event2, [button2])">Button 4</button>
+    </div>
+  </dl>
+  <div class="replay-data" ng-show="log.length || replay.length || gamify.isDirty()">
+    <h3>Replay Data</h3>
+    <p class="text-muted"> </p>
+    <div class="clearfix"></div>
+    <textarea class="form-control" rows="5" ng-model="replayJson"></textarea>
+    <div class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="nav navbar-nav navbar-left">
+          <button class="btn btn-warning navbar-btn" type="button" ng-click="resetReplay()" ng-disabled="!replay || replay.length === 0"><span class="glyphicon glyphicon-trash"></span> Clear</button>
+          <button class="btn btn-success navbar-btn" type="button" ng-click="loadReplay()" ng-disabled="!isValidJson(replayJson)"><span class="glyphicon glyphicon-flash"></span> Run</button>
+        </div>
+        <div class="navbar-form navbar-left" ng-show="log.length &gt; 0">
+          <div class="form-group">
+            <label>
+              <input type="checkbox" ng-model="hideLog"/> Hide Log
+            </label>
+          </div>
+        </div>
+        <div class="nav navbar-nav navbar-right">
+          <button class="btn btn-danger navbar-btn" ng-click="resetLog()" ng-if="log.length&amp;&amp;!hideLog"> Reset Log</button>
+          <button class="btn btn-danger navbar-btn" ng-click="gamify.reset()" ng-if="gamify.isDirty()"> Reset Gamify</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="well" ng-if="log.length &amp;&amp; !hideLog">
+    <label class="text-muted">Debug log</label>
+    <label class="small pull-right">Show Debugging
+      <input type="checkbox" ng-model="showDebugInfo"/>
+    </label>
+    <div class="clearfix"></div>
+    <div class="logwrapper" scroll-glue="true">
+      <div ng-repeat="entry in log"><span class="pull-right" ng-bind="entry.date|date:'short'"></span><span class="block" ng-bind="entry.message"></span>
+        <pre class="no-border" ng-if="showDebugInfo&amp;&amp;entry.debug" ng-bind="entry.debug|json"></pre>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js'></script>
+<script src='https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js'></script>
+
+    <script  src="js/index.js"></script>
+
+</body>
+</html>
