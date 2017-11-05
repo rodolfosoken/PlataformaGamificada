@@ -60,6 +60,8 @@ function procurarAluno() {
             for (var i = 0; i < alunosAchados.length; i++)
                 htmlString += alunosAchados[i].toHtml();
             $("#quadroDeAlunos").html(htmlString);
+            $(".insignia").removeClass("animated flip");
+            $(".insignia").addClass("animated flip");
         }
 
     } else {
@@ -101,6 +103,7 @@ $(document).ready(function() {
 
     //faz a animacao das insignias
     $(".insignia").addClass("animated flip");
+
 
 
     // //leitura de csv
