@@ -11,9 +11,9 @@ class Aluno {
     		insigniasHtml += this.insignias[i].toHtml();
     	
         var stringAluno = "<div class=\"row align-items-center rowAluno\">" +
-            "<div class=\"col-1\">" +
+            "<div class=\"col-md-1\">" +
             "<img src=\"images/icon-user.png\">" +
-            " </div> <div class=\"col nome\">" +
+            " </div> <div class=\"col-md nome\">" +
             "Nome: " + this.nome + " " +
             "</div>" +
             insigniasHtml+
@@ -28,7 +28,7 @@ class Insignia{
 	}
 
 	toHtml(){
-			return "<div class=\"col-2\">" +
+			return "<div class=\"col-md-2\">" +
             "<img src=\"images/"+this.nameFile+"\" class=\"insignia\">" +
             " </div>"
 	}
@@ -69,6 +69,8 @@ function procurarAluno() {
 }
 
 
+
+
 //executa os metodos após o carregamento da página
 $(document).ready(function() {
     //reseta campo de pesquisa
@@ -99,4 +101,13 @@ $(document).ready(function() {
 
     //faz a animacao das insignias
     $(".insignia").addClass("animated flip");
+
+
+    // //leitura de csv
+    //  var request = new XMLHttpRequest();
+    //     request.open("GET", "arquivo.csv", false);
+    //     request.send(null);
+    //     var lines = request.responseText.split(",");
+    //     alert(lines);
+   
 });
