@@ -109,6 +109,7 @@ $(document).ready(function() {
 
 
     $.ajax({
+    	type: 'GET',
     	url:'arquivo.csv',
     	dataType:'csv'
     }).done(processarCSV);
