@@ -71,7 +71,10 @@ function procurarAluno() {
 }
 
 
+function processarCSV(data){
+	alert(data);
 
+}
 
 //executa os metodos após o carregamento da página
 $(document).ready(function() {
@@ -105,6 +108,10 @@ $(document).ready(function() {
     $(".insignia").addClass("animated flip");
 
 
+    $.ajax({
+    	url:'arquivo.csv',
+    	dataType:'csv'
+    }).done(processarCSV);
 
     // //leitura de csv
     //  var request = new XMLHttpRequest();
