@@ -72,7 +72,11 @@ function procurarAluno() {
 
 
 function processarCSV(data){
-	alert(data);
+	var dadosProcessados = Papa.parse(data,{header:true});
+	console.log(dadosProcessados);
+	console.log(dadosProcessados.data[0]['ID do Usuario']);
+	console.log(dadosProcessados.data[0].Nome);
+	console.log(dadosProcessados.data[0].Total);
 
 }
 
@@ -109,16 +113,13 @@ $(document).ready(function() {
 
 
     $.ajax({
-    	type: 'GET',
     	url:'arquivo.csv',
-    	dataType:'csv'
-    }).done(processarCSV);
+    	dataType:'text',
+    	success: function(data){
+    		processarCSV(data);
+    	}
+    });
 
-    // //leitura de csv
-    //  var request = new XMLHttpRequest();
-    //     request.open("GET", "arquivo.csv", false);
-    //     request.send(null);
-    //     var lines = request.responseText.split(",");
-    //     alert(lines);
+
    
 });
