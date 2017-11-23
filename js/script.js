@@ -73,10 +73,26 @@ function procurarAluno() {
 
 function processarCSV(data){
 	var dadosProcessados = Papa.parse(data,{header:true});
-	console.log(dadosProcessados);
-	console.log(dadosProcessados.data[0]['ID do Usuario']);
-	console.log(dadosProcessados.data[0].Nome);
-	console.log(dadosProcessados.data[0].Total);
+    console.log(dadosProcessados);
+    var insigniaVermelha = new Insignia("medalhaVermelha.png");
+    var insigniaColorida = new Insignia("medalhaColorida.png");
+    var insigniaTrofeu = new Insignia("trofeu-01.png");
+    for (var i = dadosProcessados.data.length - 1; i >= 0; i--) {
+        var insignias=[];
+        var total = 1*dadosProcessados.data[i].Total;
+        if(total >= 5 && total < 20){
+            insignias = [insigniaVermelha];
+        }else if (total >= 20 && total < 30){
+            insignias = [insigniaVermelha,insigniaColorida]; 
+        }else if (total >= 30){
+            insignias = [insigniaVermelha, insigniaColorida, insigniaTrofeu];
+        }
+        var aluno = new Aluno(dadosProcessados.data[i].Nome, insignias, dadosProcessados.data[i].Total);
+        alunos.push(aluno);
+        $(quadroDeAlunos).append(aluno.toHtml());
+    }
+     //faz a animacao das insignias
+    $(".insignia").addClass("animated flip");
 
 }
 
@@ -89,12 +105,14 @@ $(document).ready(function() {
     var insigniaColorida = new Insignia("medalhaColorida.png");
     var insigniaTrofeu = new Insignia("trofeu-01.png");
 
-    //preenche o quadro de alunos
-    for (var i = 1; i <= 5; i++) {
-        var aluno = new Aluno("Aluno " + i, [insigniaTrofeu, insigniaColorida, insigniaVermelha]);
-        alunos.push(aluno);
-        $("#quadroDeAlunos").append(aluno.toHtml());
-    } //fim do for
+    // //preenche o quadro de alunos
+    $.ajax({
+        url:'arquivo.csv',
+        dataType:'text',
+        success: function(data){
+            processarCSV(data);
+        }
+    });
 
     //mecanismo de busca
     $("#procurarAluno").click(function() {
@@ -110,16 +128,5 @@ $(document).ready(function() {
 
     //faz a animacao das insignias
     $(".insignia").addClass("animated flip");
-
-
-    $.ajax({
-    	url:'arquivo.csv',
-    	dataType:'text',
-    	success: function(data){
-    		processarCSV(data);
-    	}
-    });
-
-
    
 });
