@@ -29,8 +29,10 @@ class Insignia{
 
 	toHtml(){
 			return "<div class=\"col-md-2\">" +
+             "<a href=\"quadro.html\">"+
             "<img src=\"images/"+this.nameFile+"\" class=\"insignia\">" +
-            " </div>"
+            "</a>"+
+            " </div>";
 	}
 }
 
@@ -65,7 +67,11 @@ function procurarAluno() {
         }
 
     } else {
-        alert("O nome não pode ser vazio.");
+        var htmlString = "";
+        for (var i = 0; i < alunos.length; i++) {
+            htmlString += alunos[i].toHtml();
+        }
+        $("#quadroDeAlunos").html(htmlString);
     }
 
 }
@@ -89,7 +95,7 @@ function processarCSV(data){
         }
         var aluno = new Aluno(dadosProcessados.data[i].Nome, insignias, dadosProcessados.data[i].Total);
         alunos.push(aluno);
-        $(quadroDeAlunos).append(aluno.toHtml());
+        $("#quadroDeAlunos").append(aluno.toHtml());
     }
      //faz a animacao das insignias
     $(".insignia").addClass("animated flip");
@@ -101,11 +107,7 @@ $(document).ready(function() {
     //reseta campo de pesquisa
     $("#nomePesquisa").val("");
 
-    var insigniaVermelha = new Insignia("medalhaVermelha.png");
-    var insigniaColorida = new Insignia("medalhaColorida.png");
-    var insigniaTrofeu = new Insignia("trofeu-01.png");
-
-    // //preenche o quadro de alunos
+    //preenche o quadro de alunos
     $.ajax({
         url:'arquivo.csv',
         dataType:'text',

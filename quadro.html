@@ -20,66 +20,34 @@
         <div class="row ">
             <ul class="nav nav-tabs nav-pills" id="navbar">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Ranking</a>
+                    <a class="nav-link" href="index.html">Ranking</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="quadro.html">Quadro de Insígnias</a>
+                    <a class="nav-link active" href="quadro.html">Quadro de Insígnias</a>
                 </li>
             </ul>
         </div>
         <div class="row inner">
             <div class="col-md-1"></div>
             <div class="col-md" >
-                <!--Barra de Busca do aluno -->
-                <div class="row align-items-center">
-                    <div class="col-md-1"> </div>
-                    <div class="col-md-2 ">
-                        <img src="images/icons8-checked-user-male.png" id="img_user_checked" >
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Qual o seu Nome?" id="nomePesquisa">
-                    </div>
-                    <div class="col-md">
-                        <button class="btn btn-primary" id="procurarAluno"> Procurar</button>
-                    </div>
-                </div>
-                
-                <!--Quadro de Alunos -->
-                <div id="quadroDeAlunos">
+                <!--Quadro de Insignias -->
+                <div id="quadroDeInsignias">
                     <div class="row align-items-center rowAluno">
-                        <div class="col-md-1">
-                            <img src="images/icon-user.png">
+                        <div class="col-md-2">
+                            <img src="images/trofeu-01.png" class="insignia">
                         </div>
                         <div class="col-md">
-                            Nome: Aluno fixo no quadro (hardcoded)
-                        </div>
-                         <div class="col-md-2">
-                            <a href="quadro.html">
-                                <img src="images/trofeu-01.png" class="insignia">
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="quadro.html">
-                                <img src="images/medalhaColorida.png" class="insignia">
-                            </a>
+                            Título: Trofeu
+                            <p>Descrição: Descrição da insignia</p>
                         </div>
                     </div>
                     <div class="row align-items-center rowAluno">
-                        <div class="col-md-1">
-                            <img src="images/icon-user.png">
+                        <div class="col-md-2">
+                            <img src="images/medalhaColorida.png" class="insignia">
                         </div>
                         <div class="col-md">
-                            Nome: Segundo aluno fixo no quadro
-                        </div>
-                        <div class="col-md-2">
-                            <a href="quadro.html">
-                                <img src="images/trofeu-01.png" class="insignia">
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="quadro.html">
-                                <img src="images/medalhaColorida.png" class="insignia">
-                            </a>
+                            Título: título da insignia 
+                            <p>Descrição: Descrição da insignia</p>
                         </div>
                     </div>
                 </div>
@@ -105,8 +73,8 @@
   crossorigin="anonymous"></script>
     
     <!--JS Personalizado-->
-    <script src="js/script.js"> </script>
-    <script src="js/papaparse.js"> </script>
+    <script src="js/scriptQuadro.js"/>
+    <!--script src="js/papaparse.js"> </script-->
 
 </body>
 
