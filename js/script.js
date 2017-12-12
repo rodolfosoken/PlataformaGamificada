@@ -1,15 +1,31 @@
+
+//classe aluno recebe o nome do aluno e uma lista de insignias
 class Aluno {
     constructor(nome, insignias) {
         this.nome = nome;
         this.insignias = insignias;
     }
 
+/* 
+    Para ser exibido, cada objeto aluno precisa ser convertido 
+    em uma string html para que esta string entao seja inserida dentro da 
+    div "#quadroDeAlunos" pelo metodo "processarCSV(data)" assim, 
+    para qualquer info adicional a ser inserida do aluno, 
+    vc deve modificar este metodo
+
+    O processo ocorre da mesma maneira para as insignias
+    as quais são recebidas em formato de lista no metodo construtor do aluno.
+ */
     toHtml() {
     	var insigniasHtml = "";
     	
+        //itera sobre a lista de insignias recebida
+        //convertendo as insignias em html
     	for (var i = 0; i < this.insignias.length; i++)
     		insigniasHtml += this.insignias[i].toHtml();
     	
+        //Apos todas as insignias serem convertidas em uma string html,
+        //ela eh concatenada na string html do aluno
         var stringAluno = "<div class=\"row align-items-center rowAluno\">" +
             "<div class=\"col-md-1\">" +
             "<img src=\"images/icon-user.png\">" +
@@ -22,11 +38,14 @@ class Aluno {
     }
 }
 
+//classe insignia recebe como parametro o nome do arquivo de imagem
 class Insignia{
 	constructor(nameFile){
 		this.nameFile = nameFile;
 	}
 
+    //retorna o trecho de html correspondente 
+    //a representacao visal desta insignia
 	toHtml(){
 			return "<div class=\"col-md-2\">" +
              "<a href=\"quadro.html\">"+
@@ -44,7 +63,8 @@ function procurarAluno() {
     var nomeInserido = $("#nomePesquisa").val();
     var naoEncontrado = true;
 
-    if (nomeInserido) {
+    if (nomeInserido) { //caso o campo de busca nao esteja nulo
+        //procurar pelo nome do aluno
         alunosAchados = []
         var nomes = document.getElementsByClassName("nome");
 
@@ -66,7 +86,8 @@ function procurarAluno() {
             $(".insignia").addClass("animated flip");
         }
 
-    } else {
+    } else {//caso o campo de busca esteja vazio
+        //preencher o quadro com todos os alunos
         var htmlString = "";
         for (var i = 0; i < alunos.length; i++) {
             htmlString += alunos[i].toHtml();
@@ -77,7 +98,10 @@ function procurarAluno() {
 }
 
 
+//funcao que processa o arquivo csv
 function processarCSV(data){
+    //indica quais os dados a serem processados e que a 
+    //primeira liha do arquivo sao os nomes das colunas
 	var dadosProcessados = Papa.parse(data,{header:true});
     console.log(dadosProcessados);
     var insigniaVermelha = new Insignia("medalhaVermelha.png");
